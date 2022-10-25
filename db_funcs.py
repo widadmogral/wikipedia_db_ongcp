@@ -56,25 +56,27 @@ def insert_row(topic, summary,img_link):
     cursor.close()
 
 def search_db(keyword):
+    row_dict = {"title": '', "summary": '', "img_link": ''}
     try:
         conn = get_db_connection()
     except Exception as e:
         print(e)
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT * from wikipedia")
-        #cursor.execute("SELECT * from wikipedia WHERE keyword = %s", (keyword,))
-        print(cursor.fetchall())
-
+        #cursor.execute("SELECT * from wikipedia")
+        cursor.execute("SELECT * from wikipedia WHERE keyword = %s", (keyword,))
+        row_dict.update(zip(row_dict, cursor.fetchone()))
 
     except Exception as e:
         print(e)
     conn.commit()
     conn.close()
     cursor.close()
+    return row_dict
 
 
 create_table()
+print(search_db("Hello"))
 #search_db("hello")
 
 
