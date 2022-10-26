@@ -1,0 +1,7 @@
+Flask==2.2.2
+mediawiki==0.0.1
+psycopg2==2.9.5
+psycopg2_binary==2.9.4
+pymediawiki==0.7.2
+pytest==7.2.0
+requests==2.25.1
