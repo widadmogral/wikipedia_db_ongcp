@@ -14,13 +14,15 @@ def wiki_get_summary_img(keyword):
                 wiki_dict["img_link"] = "No images for this keyword"
 
         except mediawiki.DisambiguationError as e:
-            wiki_dict["title"] = "Keyword too vague \n Did you mean" + str(e.options)
+            #wiki_dict = None
+            raise e
 
         except mediawiki.PageError as e:
-            wiki_dict["title"] = e
+            #wiki_dict = None
+            raise e
+            #wiki_dict["title"] = e
 
-        finally:
-            return wiki_dict
+        return None
 
 #def keyword_db_search(keyword):
 
