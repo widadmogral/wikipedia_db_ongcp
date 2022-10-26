@@ -2,18 +2,21 @@
 import psycopg2
 import os
 import sys
+
+
 def get_db_connection():
     conn = psycopg2.connect(host='localhost',
                             database='postgres',
                             user=os.environ['DB_USERNAME'],
                             password=os.environ['DB_PASSWORD'],
-                            port ='5432')
+                            port='5432')
     return conn
+
 
 def create_table():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute( """
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS wikipedia(
             keyword_id SERIAL PRIMARY KEY,
             keyword VARCHAR(255) UNIQUE NOT NULL,
@@ -25,18 +28,19 @@ def create_table():
     conn.close()
     cursor.close()
 
-def insert_row(topic, summary,img_link):
+
+def insert_row(topic, summary, img_link):
 
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute( """
+        cursor.execute("""
         INSERT INTO wikipedia(
             keyword,
             summary,
             img_link
-        ) VALUES(%s,%s,%s)""", (topic,summary,img_link)
-                        )
+        ) VALUES(%s,%s,%s)""", (topic, summary, img_link)
+                       )
     except Exception as e:
         print(e)
 
@@ -44,11 +48,13 @@ def insert_row(topic, summary,img_link):
     conn.close()
     cursor.close()
 
+
 def search_db(keyword):
     row_dict = {"title": '', "summary": '', "img_link": ''}
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT keyword,summary,img_link from wikipedia WHERE keyword = %s", (keyword,))
+    cursor.execute(
+        "SELECT keyword,summary,img_link from wikipedia WHERE keyword = %s", (keyword,))
     row = cursor.fetchone()
     conn.commit()
     conn.close()
@@ -57,6 +63,3 @@ def search_db(keyword):
 
 
 create_table()
-
-
-
