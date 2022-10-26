@@ -64,11 +64,10 @@ def search_db(keyword):
     cursor = conn.cursor()
     try:
         #cursor.execute("SELECT * from wikipedia")
-        cursor.execute("SELECT * from wikipedia WHERE keyword = %s", (keyword,))
+        cursor.execute("SELECT keyword,summary,img_link from wikipedia WHERE keyword = %s", (keyword,))
         row_dict.update(zip(row_dict, cursor.fetchone()))
-
-    except Exception as e:
-        print(e)
+    except TypeError as e:
+        return None
     conn.commit()
     conn.close()
     cursor.close()
@@ -76,7 +75,7 @@ def search_db(keyword):
 
 
 create_table()
-print(search_db("Hello"))
+print(search_db("ello"))
 #search_db("hello")
 
 
