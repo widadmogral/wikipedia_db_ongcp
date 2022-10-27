@@ -15,12 +15,17 @@ a cloud sql database instance with postgresql and users set up. A cloud storage 
 
 ## Running the app
 
+Run as `flask run`
+
+
 
 ## TBD
 
+Implement storing images in cloud storage buckets and reading from it. 
+
 Automate creation of infrastructure.
 
-Find better ways to handle authorization and passwords other than environment variables.
+Write scripts to set environment variables like DB_USER etc / Find better ways to handle authorization and passwords other than environment variables.
 
 Create a table with foreign key relationship to main table to store image links than selecting one image now.
 
